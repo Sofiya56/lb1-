@@ -1,25 +1,28 @@
--- Все пользователи
-SELECT * FROM users;
+USE FarmDB;
 GO
 
--- Все товары
-SELECT product_name, price, stock FROM products;
-GO
+-- 1. Вивести всі ділянки та їхні культури
+SELECT f.field_id, f.area, c.name AS crop_name
+FROM Field f
+LEFT JOIN Crop c ON f.crop_id = c.crop_id;
 
--- Заказы конкретного пользователя
-SELECT o.order_id, o.order_date, p.product_name, o.quantity 
-FROM orders o JOIN products p ON o.product_id = p.product_id 
-WHERE o.user_id = 1;
-GO
+-- 2. Показати список працівників разом із бригадою
+SELECT w.full_name, b.chief_name AS brigade_chief
+FROM Worker w
+JOIN Brigade b ON w.brigade_id = b.brigade_id;
 
--- Количество заказов каждого пользователя
-SELECT u.username, COUNT(o.order_id) AS order_count
-FROM users u LEFT JOIN orders o ON u.user_id = o.user_id
-GROUP BY u.username;
-GO
+-- 3. Вивести працівників та техніку, з якою вони працюють
+SELECT w.full_name, am.name AS machinery_name
+FROM Worker_Skills ws
+JOIN Worker w ON ws.worker_id = w.worker_id
+JOIN AgriculturalMachinery am ON ws.machinery_id = am.machinery_id;
 
--- Товары с малым количеством на складе
-SELECT product_name, stock 
-FROM products 
-WHERE stock < 10;
-GO
+-- 4. Показати ділянки, що потребують зрошення
+SELECT field_id, area FROM Field WHERE irrigation = 1;
+
+-- 5. Знайти культури, які потребують певного добрива
+SELECT c.name AS crop_name, f.name AS fertilizer_name
+FROM Crop_Fertilizer cf
+JOIN Crop c ON cf.crop_id = c.crop_id
+JOIN Fertilizer f ON cf.fertilizer_id = f.fertilizer_id;
+
