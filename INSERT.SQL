@@ -1,17 +1,55 @@
--- Добавление пользователей
-INSERT INTO users (username, email, phone_number, address) VALUES 
-('john_doe', 'john@example.com', '123-456-7890', '123 Main St'),
-('jane_doe', 'jane@example.com', '098-765-4321', '456 Elm St');
+USE FarmDB;
 GO
 
--- Добавление товаров
-INSERT INTO products (product_name, price, stock) VALUES 
-('Laptop', 1000.00, 50),
-('Smartphone', 500.00, 100);
-GO
+-- Додавання культур
+INSERT INTO Crop (crop_id, name, avg_yield, needs_irrigation) VALUES
+(1, 'Пшениця', 3.5, 0),
+(2, 'Кукурудза', 6.2, 1),
+(3, 'Соняшник', 2.8, 0);
 
--- Добавление заказов
-INSERT INTO orders (user_id, product_id, quantity) VALUES 
-(1, 2, 1),
-(2, 1, 2);
-GO
+-- Додавання бригад
+INSERT INTO Brigade (brigade_id, chief_name) VALUES
+(1, 'Іванов Іван'),
+(2, 'Петров Петро');
+
+-- Додавання працівників
+INSERT INTO Worker (worker_id, full_name, brigade_id) VALUES
+(1, 'Сидоренко Олексій', 1),
+(2, 'Коваленко Андрій', 1),
+(3, 'Мельник Олег', 2);
+
+-- Додавання ділянок
+INSERT INTO Field (field_id, area, irrigation, crop_id, brigade_id) VALUES
+(1, 50.5, 1, 2, 1),
+(2, 30.0, 0, 1, 2);
+
+-- Додавання сільгосптехніки
+INSERT INTO AgriculturalMachinery (machinery_id, name) VALUES
+(1, 'Трактор МТЗ'),
+(2, 'Комбайн John Deere');
+
+-- Призначення техніки бригадам
+INSERT INTO Brigade_Machinery (brigade_id, machinery_id, quantity) VALUES
+(1, 1, 2),
+(2, 2, 1);
+
+-- Навички працівників
+INSERT INTO Worker_Skills (worker_id, machinery_id) VALUES
+(1, 1),
+(2, 2),
+(3, 1);
+
+-- Додавання добрив
+INSERT INTO Fertilizer (fertilizer_id, name) VALUES
+(1, 'Азотне'),
+(2, 'Фосфорне');
+
+-- Використання добрив на ділянках
+INSERT INTO Field_Fertilizer (field_id, fertilizer_id) VALUES
+(1, 1),
+(2, 2);
+
+-- Добрива, що потрібні культурам
+INSERT INTO Crop_Fertilizer (crop_id, fertilizer_id) VALUES
+(1, 1),
+(2, 2);
