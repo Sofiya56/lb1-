@@ -1,16 +1,16 @@
--- Обновление данных
-UPDATE users SET email = 'john_doe_new@example.com' WHERE user_id = 1;
+USE FarmDB;
 GO
 
-UPDATE products SET price = 550.00 WHERE product_name = 'Smartphone';
-GO
+-- Оновлення назви культури
+UPDATE Crop SET name = 'Озима пшениця' WHERE crop_id = 1;
 
-UPDATE products SET stock = stock + 10 WHERE product_name = 'Laptop';
-GO
+-- Зміна площі ділянки
+UPDATE Field SET area = 55.0 WHERE field_id = 1;
 
--- Удаление данных
-DELETE FROM orders WHERE order_id = 1;
-GO
+-- Видалення техніки з бригади
+DELETE FROM Brigade_Machinery WHERE brigade_id = 2 AND machinery_id = 2;
 
-DELETE FROM users WHERE user_id = 2;
-GO
+-- Додавання нового працівника у бригаду
+INSERT INTO Worker (worker_id, full_name, brigade_id) VALUES
+(4, 'Ткаченко Сергій', 1);
+
